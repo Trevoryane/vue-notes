@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MVVM模型</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <!--
+        MVVM模型代表三个内容:
+            1.M - model模型 - 对应data中的数据
+            2.V - view视图 - 模板
+            3.VM - viewmodel视图模型 - vue实例对象
+
+            观察发现：
+                1.data中有的属性，最后都出现在vue实例上 - vm模型上
+                2.VM上所有属性，及vue原型上所有属性，在vue模板上都可以直接使用
+    -->
+
+    <!--view-->
+    <div id="app">
+        <h2>学校名称：{{ name }}</h2>
+        <h2>学校地址：{{ address }}</h2>
+        <!--不是说data里有才能看见-->
+        <h2>测试一下：{{ $options }}</h2> <!--vm自带的，原型上有的，控制台输入Vue可以看到-->
+        <h2>测试一下：{{ $emit }}</h2> <!--vm自带的-->
+        <h2>测试一下：{{ _c }}</h2> <!--vm自带的-->
+    </div>
+
+<script type="text/javascript">
+    new Vue({   //viewModel - 视图模型
+        el: '#app',
+        data: {
+            //model模型 - 数据
+            name: '尚硅谷',
+            address: '北京'
+        }
+    })
+</script>
+</body>
+</html>

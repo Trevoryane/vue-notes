@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板语法</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <!--
+        什么时候用插值表达式，什么时候用v-bind: 属性绑定 ？
+            所有标签体中都可以用插值表达式 - 起始和终止标签夹着的内容
+            标签属性使用指令语法
+
+        vue模板语法有两大类：
+            1.插值语法：
+                功能：用于解析标签体内容
+                举例：{{xxx}}，xxx要写成js表达式，且可以直接读取到data中的所有属性
+            2.指令语法：
+                功能：用于解析标签(标签属性、标签体内容、绑定事件)
+                举例：v-bind:href="xxx"，xxx同样要写js表达式，且可以直接读取到data中的所有属性
+    -->
+
+
+    <div id="app">
+        <h1>插值语法</h1>
+        <h3>你好，{{ name }}</h3>
+        <hr>
+        <!--<a href={{url}}>点我去百度</a>-->
+        <!--
+            v-bind可以绑定任意属性 :
+                如：x不是a标签的属性
+            v-bind绑定属性后，引号中的名字 由 字符串 变为 变量
+                如：不绑定x属性，hello是一个字符串
+                    绑定x属性，hello是一个变量，需要在data处声明
+            v-bind: - 可以简写成 - :
+        -->
+        <h1>指令语法</h1>
+        <a v-bind:href="url.toUpperCase()" v-bind:x="hello">点我去百度</a>
+        <!--不写v-bind，就是一个字符串，加了就是vue执行这个表达式-->
+        <a href="Date.now()" x="hello">点我去百度</a>
+        <a :href="Date.now()" x="hello">点我去百度</a>
+        <a v-bind:href="school.url" v-bind:x="hello">点我去{{school.name}}</a>
+    </div>
+
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data:{
+            name: 'jack',
+            url: 'http://www.baidu.com',
+            hello: '你好',
+            school: {
+                name:'尚硅谷',
+                url:'http://www.baidu.com'
+            }
+        },
+    })
+</script>
+</body>
+</html>

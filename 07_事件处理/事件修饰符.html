@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件修饰符</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <style>
+        *{
+            margin-top: 20px;
+        }
+        .demo1{
+            height: 50px;
+            background-color: deepskyblue;
+        }
+        .box1{
+            padding: 5px;
+            background-color: skyblue;
+        }
+        .box2{
+            padding: 5px;
+            background-color: orange;
+        }
+        .list{
+            width: 200px;
+            height: 200px;
+            background-color: peru;
+            overflow: auto;
+        }
+        li{
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!--
+        vue中的事件修饰符：
+            1.prevent：阻止默认事件
+            2.stop：阻止事件冒泡
+            3.once：事件只触发一次
+            4.capture：使用事件的捕获模式
+            5.self：只有event.target是当前操作的元素时，才触发事件
+            6.passive：事件的默认行为立即执行，无需等待事件回调执行完毕
+    -->
+    <div id="app">
+        <h2>欢迎来到{{name}}</h2>
+        <!--阻止默认事件-->
+        <a href="http://www.baidu.com" @click.prevent="showInfo">点我提示信息</a>
+        <!--阻止事件冒泡-->
+        <div @click="showInfo" class="demo1">
+            <button @click.stop="showInfo">点我提示信息</button>
+        </div>
+        <!--事件只触发一次-->
+        <button @click.once="showInfo">点我提示信息</button>
+        <!--使用事件的捕获模式-->
+        <div class="box1" @click.capture="showMsg(1)">
+            div1
+            <div class="box2" @click="showMsg(2)">
+                <!--
+                事件捕获阶段-由外往内
+                事件冒泡阶段-由内向外
+                -->
+                div2
+                <!--点击div2输出 2 1 事件冒泡-事件捕获-->
+                <!--加了捕获修饰符 事件捕获-事件冒泡 1 2-->
+            </div>
+        </div>
+        <!--只有event.target是当前操作的元素时，才触发事件-->
+        <div @click.self="showInfo" class="demo1" >
+            <button @click="showInfo">点我提示信息</button>
+        </div>
+
+        <!--事件的默认行为立即执行，无需等待事件回调执行完毕-->
+        <!--@scroll设置滚动事件 - 滚动条-->
+        <!--@wheel.passive设置滚动事件 - 滚动轮-->
+        <!--<ul @scroll.passive="demo" class="list">-->
+        <ul @wheel.passive="demo" class="list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+
+    </div>
+
+
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            name: '尚硅谷'
+        },
+        methods: {
+            showInfo(e){
+                //e.preventDefault() //1.阻止默认行为 - 跳转 或者在click处操作
+                //e.stopPropagation() //阻止冒泡
+                alert("同学，你好")
+                //console.log(e.target) //点我提示信息 - 输出是那个按钮
+            },
+            showMsg(msg){
+                console.log(msg)
+            },
+            demo(){
+                console.log('@')
+                for (let i = 0; i < 1000; i++) {
+                    console.log('#')
+                }
+                console.log("累坏了")
+            },
+        }
+    })
+</script>
+</body>
+</html>

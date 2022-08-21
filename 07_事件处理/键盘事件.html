@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>键盘事件</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <!--
+        vue键盘别名：
+            1.tab 必须搭配keydown
+            2.meta win键 搭配keyup使用时，需要在按下任意键，在释放，才会触发事件
+                搭配keydown正常使用
+    -->
+    <div id="app">
+        <h2>欢迎来到{{name}}</h2>
+        <!--vue按键的别名：enter-->
+        <!--<input type="text" placeholder="按下回车提示输入" @keyup.enter="showInfo">-->
+        <!--vue按键的别名：delete 退格和del-->
+        <input type="text" placeholder="按下回车提示输入" @keyup.delete="showInfo">
+
+        <!--绑定自定义按键-->
+        <input type="text" placeholder="按下回车提示输入" @keyup.caps-lock="showKey">
+
+    </div>
+
+</body>
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data: {
+            name: '尚硅谷'
+        },
+        methods: {
+            showInfo(e) {
+                //console.log(e.keyCode) //判断回车按下再输出，或者在时间修饰enter
+                //if (e.keyCode !== 13) return
+                console.log(e.target.value)
+            },
+            showKey(e){
+                //console.log(e.key,e.keyCode)
+                console.log(e.target.value)
+            }
+        }
+    })
+</script>
+</html>
