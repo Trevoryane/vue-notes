@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>天气案例</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!--插值表达式内写表达式，if不属于表达式-->
+        <!--<h2>今天天气很{{isHot ? '炎热' : '凉爽'}}</h2>-->
+        <!--1.<h2>今天天气很{{info}}</h2>-->
+        <h2>今天天气很{{info}}</h2>
+        <!--绑定事件的时候：@xxx="yyy" yyy可以写一些简单的语句-->
+        <!--<button @click="isHot = !isHot">切换天气</button>-->
+        <button @click="changeWeather">切换天气</button>
+    </div>
+
+</body>
+<script type="text/javascript">
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            isHot: true
+        },
+        computed: {
+            info(){
+                // return isHot ? '炎热' : '凉爽' //没有this，输出报错未定义
+                return this.isHot ? '炎热' : '凉爽'
+            }
+        },
+        methods: {
+            //此处不写方法可以在click处改，isHot = !isHot
+            /*changeWeather(){
+                //直接取反，省去if else
+                this.isHot = !this.isHot
+            }*/
+        }
+    })
+</script>
+</html>
